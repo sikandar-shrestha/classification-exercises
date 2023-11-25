@@ -11,7 +11,7 @@ def check_file_exists(filename, query, url):
     '''
     if os.path.exists(filename):
         print('this file exists, reading csv')
-        df = pd.read_csv(filename)
+        df = pd.read_csv(filename,index_col=0)
     else:
         print('this file doesnt exist, read from sql, and export to csv')
         df = pd.read_sql(query, url)
@@ -71,5 +71,10 @@ def get_telco_data():
             using (payment_type_id)
     '''
     
-    df = pd.read_sql(query, url)
+    filename = 'telco.csv'
+    
+    #call the check_file_exists fuction 
+    df = check_file_exists(filename, query, url)
+    return df
+
     return df
